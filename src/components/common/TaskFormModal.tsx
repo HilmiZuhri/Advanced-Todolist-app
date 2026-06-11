@@ -1,33 +1,28 @@
-// src/components/common/TaskFormModal.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import Modal from '../ui/Modal';
 import type { Task, TaskPriority, TaskCategory } from '../../interfaces/Task';
 import { useTasks } from '../../contexts/TaskContext';
-import { format } from 'date-fns'; // Untuk memformat tanggal
-
-// Install date-fns: npm install date-fns
+import { format } from 'date-fns'; 
 
 interface TaskFormModalProps {
   isOpen: boolean;
   onClose: () => void;
-  taskToEdit?: Task; // Opsional: jika ada, ini adalah mode edit
+  taskToEdit?: Task;
 }
 
-// Default state untuk form tugas baru
 const defaultTaskState: Omit<Task, 'id' | 'isCompleted' | 'createdAt'> = {
   title: '',
   description: '',
   priority: 'Medium',
   category: 'Personal',
-  dueDate: format(new Date(), 'yyyy-MM-dd'), // Default ke hari ini
+  dueDate: format(new Date(), 'yyyy-MM-dd'), 
 };
 
 const TaskFormModal: React.FC<TaskFormModalProps> = ({ isOpen, onClose, taskToEdit }) => {
   const { addTask, updateTask } = useTasks();
   const [formData, setFormData] = useState<Omit<Task, 'id' | 'isCompleted' | 'createdAt'>>(defaultTaskState);
-  const titleInputRef = useRef<HTMLInputElement>(null); // Ref untuk fokus otomatis
+  const titleInputRef = useRef<HTMLInputElement>(null);
 
-  // Mengisi form jika ada taskToEdit
   useEffect(() => {
     if (taskToEdit) {
       setFormData({
@@ -38,10 +33,9 @@ const TaskFormModal: React.FC<TaskFormModalProps> = ({ isOpen, onClose, taskToEd
         dueDate: taskToEdit.dueDate,
       });
     } else {
-      setFormData(defaultTaskState); // Reset form untuk tugas baru
+      setFormData(defaultTaskState); 
     }
 
-    // Fokus ke input judul saat modal terbuka
     if (isOpen && titleInputRef.current) {
       titleInputRef.current.focus();
     }
@@ -55,13 +49,11 @@ const TaskFormModal: React.FC<TaskFormModalProps> = ({ isOpen, onClose, taskToEd
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (taskToEdit) {
-      // Mode Edit
       updateTask(taskToEdit.id, formData);
     } else {
-      // Mode Add
       addTask(formData);
     }
-    onClose(); // Tutup modal setelah submit
+    onClose();
   };
 
   const title = taskToEdit ? 'Edit Task' : 'Add New Task';

@@ -1,6 +1,5 @@
-// src/components/layout/Sidebar.tsx
 import React from 'react';
-import { ListTodo, Briefcase, User, ShoppingCart, Heart, BookOpen, Tag, X } from 'lucide-react'; // Import ikon X
+import { ListTodo, Briefcase, User, ShoppingCart, Heart, BookOpen, Tag, X } from 'lucide-react';
 import { useTasks } from '../../contexts/TaskContext';
 import type { TaskCategory } from '../../interfaces/Task';
 
@@ -33,7 +32,8 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
-  const { filterOptions, setFilterOptions, tasks } = useTasks();
+  // const { filterOptions, setFilterOptions, tasks } = useTasks();
+  const { filterOptions, setFilterOptions } = useTasks();
 
   const categoryIcons: Record<TaskCategory, React.ElementType> = {
     'Work': Briefcase,
@@ -46,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
   const handleCategoryClick = (category: TaskCategory | 'All') => {
     setFilterOptions({ ...filterOptions, category });
-    if (window.innerWidth < 1024) { // Tutup sidebar setelah memilih kategori di mobile
+    if (window.innerWidth < 1024) { 
       onClose();
     }
   };
@@ -58,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         lg:sticky lg:translate-x-0 lg:w-64 lg:flex-shrink-0 lg:top-16 lg:h-[calc(100vh-4rem)] // Sticky di desktop, sesuaikan tinggi
       `}
     >
-      <div className="flex items-center justify-between mb-6 lg:hidden"> {/* Tombol tutup di mobile */}
+      <div className="flex items-center justify-between mb-6 lg:hidden">
         <h2 className="text-lg font-semibold text-[var(--color-text-h)]">Categories</h2>
         <button
           onClick={onClose}
@@ -70,7 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
       </div>
 
       <div className="mb-6">
-        <h2 className="text-lg font-semibold text-[var(--color-text-h)] mb-2 hidden lg:block">Categories</h2> {/* Sembunyikan judul di mobile jika sudah ada di atas */}
+        <h2 className="text-lg font-semibold text-[var(--color-text-h)] mb-2 hidden lg:block">Categories</h2>
         <nav className="space-y-1">
           <SidebarItem
             icon={ListTodo}

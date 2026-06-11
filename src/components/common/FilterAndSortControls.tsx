@@ -1,8 +1,7 @@
-// src/components/common/FilterAndSortControls.tsx
 import React from 'react';
 import { useTasks } from '../../contexts/TaskContext';
 import type { TaskCategory, TaskFilterOptions, TaskSortOptions } from '../../interfaces/Task';
-import { ListFilter, ArrowDownNarrowWide } from 'lucide-react'; // Ikon
+import { ListFilter, ArrowDownNarrowWide } from 'lucide-react';
 
 const FilterAndSortControls: React.FC = () => {
   const {
@@ -10,7 +9,7 @@ const FilterAndSortControls: React.FC = () => {
     setFilterOptions,
     sortOption,
     setSortOption,
-    tasks // Diperlukan untuk mendapatkan kategori unik
+    tasks 
   } = useTasks();
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -25,10 +24,9 @@ const FilterAndSortControls: React.FC = () => {
     setSortOption(e.target.value as TaskSortOptions);
   };
 
-  // Dapatkan daftar kategori unik dari semua tugas yang ada
-  const uniqueCategories = Array.from(new Set(tasks.map(task => task.category)));
+  
+  //const uniqueCategories = Array.from(new Set(tasks.map(task => task.category)));
 
-  // Opsi yang tersedia untuk dropdown
   const statusOptions: { value: TaskFilterOptions['status']; label: string }[] = [
     { value: 'All', label: 'All' },
     { value: 'Active', label: 'Active' },
@@ -86,13 +84,13 @@ const FilterAndSortControls: React.FC = () => {
         </select>
       </div>
 
-      <div className="flex items-center space-x-2 ml-auto"> {/* ml-auto untuk dorong ke kanan */}
+      <div className="flex items-center space-x-2 ml-auto">
         <ArrowDownNarrowWide size={18} className="text-[var(--color-text)]" />
         <span className="text-sm font-medium text-[var(--color-text-h)]">Sort by:</span>
       </div>
 
       {/* Sort Option */}
-      <div className="flex-1 min-w-[120px] max-w-[150px]"> {/* Batasi lebar */}
+      <div className="flex-1 min-w-[120px] max-w-[150px]"> 
         <label htmlFor="sortOption" className="sr-only">Sort Option</label>
         <select
           id="sortOption"

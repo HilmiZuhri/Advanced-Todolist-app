@@ -1,9 +1,8 @@
-// src/components/common/TaskDetailModal.tsx
 import React from 'react';
 import Modal from '../ui/Modal';
 import type { Task } from '../../interfaces/Task';
 import { format } from 'date-fns';
-import { Calendar, Tag, AlertCircle, Clock, CheckCircle2, Square } from 'lucide-react';
+import { Calendar, Tag, Clock, CheckCircle2, Square } from 'lucide-react';
 
 interface TaskDetailModalProps {
   isOpen: boolean;

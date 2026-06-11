@@ -1,4 +1,3 @@
-// src/components/layout/AppLayout.tsx
 import React, { useState, useEffect } from 'react';
 import Topbar from './Topbar';
 import Sidebar from './Sidebar';
@@ -8,29 +7,23 @@ interface AppLayoutProps {
 }
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State untuk mengontrol sidebar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
 
-  // Tutup sidebar saat beralih ke ukuran layar yang lebih besar
   useEffect(() => {
     const handleResize = () => {
-      // Jika lebar viewport >= 1024px (breakpoint 'lg' di Tailwind), pastikan sidebar terbuka
       if (window.innerWidth >= 1024) {
         setIsSidebarOpen(true);
       } else {
-        // Jika lebih kecil dari 'lg', tutup sidebar (jika sebelumnya terbuka)
         setIsSidebarOpen(false);
       }
     };
 
-    // Panggil saat mount
     handleResize();
 
-    // Tambahkan event listener
     window.addEventListener('resize', handleResize);
 
-    // Bersihkan event listener
     return () => window.removeEventListener('resize', handleResize);
-  }, []); // Hanya jalankan sekali saat mount
+  }, []);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev);
@@ -38,11 +31,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Topbar onToggleSidebar={toggleSidebar} /> {/* Teruskan fungsi toggle ke Topbar */}
+      <Topbar onToggleSidebar={toggleSidebar} /> 
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} /> {/* Teruskan state dan fungsi ke Sidebar */}
-        {/* Overlay untuk saat sidebar terbuka di mobile */}
+        <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
         {isSidebarOpen && window.innerWidth < 1024 && (
           <div
             onClick={toggleSidebar}

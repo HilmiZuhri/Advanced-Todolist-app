@@ -1,6 +1,5 @@
-// src/components/ui/Modal.tsx
 import React, { useEffect, useRef } from 'react';
-import { X } from 'lucide-react'; // Icon untuk tombol close
+import { X } from 'lucide-react'; 
 
 interface ModalProps {
   isOpen: boolean;
@@ -13,14 +12,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Menutup modal jika tombol Escape ditekan
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         onClose();
       }
     };
 
-    // Menutup modal jika klik di luar modal content
     const handleClickOutside = (event: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
         onClose();
@@ -30,19 +27,17 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
       document.addEventListener('mousedown', handleClickOutside);
-      // Mencegah scroll pada body saat modal terbuka
       document.body.style.overflow = 'hidden';
     } else {
       document.removeEventListener('keydown', handleEscape);
       document.removeEventListener('mousedown', handleClickOutside);
-      // Mengembalikan scroll pada body saat modal tertutup
       document.body.style.overflow = '';
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
       document.removeEventListener('mousedown', handleClickOutside);
-      document.body.style.overflow = ''; // Pastikan overflow direset saat komponen unmount
+      document.body.style.overflow = ''; 
     };
   }, [isOpen, onClose]);
 

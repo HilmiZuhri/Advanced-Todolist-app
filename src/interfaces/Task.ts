@@ -1,5 +1,3 @@
-// src/interfaces/Task.ts
-
 export type TaskPriority = 'Low' | 'Medium' | 'High';
 export type TaskCategory = 'Work' | 'Personal' | 'Shopping' | 'Health' | 'Study' | 'Other'; // Contoh kategori
 export type ViewMode = 'list' | 'board';
@@ -7,12 +5,12 @@ export type ViewMode = 'list' | 'board';
 export interface Task {
   id: string;
   title: string;
-  description?: string; // Opsional
+  description?: string;
   priority: TaskPriority;
   category: TaskCategory;
-  dueDate: string; // Menggunakan string ISO date untuk kemudahan penyimpanan dan manipulasi
+  dueDate: string; 
   isCompleted: boolean;
-  createdAt: string; // Untuk menyimpan kapan tugas dibuat
+  createdAt: string;
 }
 
 export interface TaskFilterOptions {
@@ -22,7 +20,6 @@ export interface TaskFilterOptions {
 
 export type TaskSortOptions = 'priority' | 'dueDate';
 
-// Jika kita akan memiliki konteks, kita juga bisa mendefinisikan tipenya di sini atau di file konteksnya sendiri.
 export interface TaskContextType {
   tasks: Task[];
   addTask: (task: Omit<Task, 'id' | 'isCompleted' | 'createdAt'>) => void;
@@ -32,7 +29,7 @@ export interface TaskContextType {
   setFilterOptions: (options: TaskFilterOptions) => void;
   sortOption: TaskSortOptions;
   setSortOption: (option: TaskSortOptions) => void;
-  filteredAndSortedTasks: Task[]; // Array tugas yang sudah difilter dan diurutkan
+  filteredAndSortedTasks: Task[]; 
   viewMode: ViewMode;
   setViewMode: (mode: ViewMode) => void;
 }

@@ -1,10 +1,9 @@
-// src/components/layout/Topbar.tsx
 import React from 'react';
-import { Sun, Moon, Menu } from 'lucide-react'; // Import ikon Menu
+import { Sun, Moon, Menu } from 'lucide-react'; 
 import { useTheme } from '../../contexts/ThemeContext';
 
 interface TopbarProps {
-  onToggleSidebar: () => void; // Fungsi untuk toggle sidebar
+  onToggleSidebar: () => void;
 }
 
 const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
@@ -13,7 +12,6 @@ const Topbar: React.FC<TopbarProps> = ({ onToggleSidebar }) => {
   return (
     <header className="flex items-center justify-between p-4 bg-[var(--color-bg)] border-b border-[var(--color-border)] shadow-sm">
       <div className="flex items-center">
-        {/* Hamburger Menu - Hanya terlihat di layar kecil */}
         <button
           onClick={onToggleSidebar}
           className="p-2 mr-2 rounded-full text-[var(--color-text-h)] hover:bg-[var(--color-border)] transition-colors duration-200 lg:hidden" // `lg:hidden` menyembunyikan di layar large ke atas

@@ -1,4 +1,3 @@
-// src/components/common/TaskCard.tsx (Revisi penuh)
 import React, { useState } from 'react';
 import type { Task, TaskPriority, TaskCategory } from '../../interfaces/Task';
 import { useTasks } from '../../contexts/TaskContext';
@@ -7,8 +6,8 @@ import {
   Edit2, Trash2, CheckSquare, Square, Tag, Calendar,
   AlertTriangle, BellRing, ArrowUp, ArrowRight, ArrowDown
 } from 'lucide-react';
-import ConfirmModal from '../ui/ConfirmModal'; // Import ConfirmModal
-import TaskDetailModal from './TaskDetailModal'; // Import TaskDetailModal
+import ConfirmModal from '../ui/ConfirmModal'; 
+import TaskDetailModal from './TaskDetailModal'; 
 
 interface TaskCardProps {
   task: Task;
@@ -21,17 +20,17 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit }) => {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
   const handleToggleComplete = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Cegah membuka detail saat mengklik checkbox
+    e.stopPropagation(); 
     updateTask(task.id, { isCompleted: !task.isCompleted });
   };
 
   const handleEditClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Cegah membuka detail saat mengklik edit
+    e.stopPropagation(); 
     onEdit(task);
   };
 
   const handleDeleteClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Cegah membuka detail saat mengklik delete
+    e.stopPropagation(); 
     setIsConfirmOpen(true);
   };
 
@@ -69,7 +68,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit }) => {
   return (
     <>
       <div
-        onClick={() => setIsDetailOpen(true)} // Klik di area mana saja untuk melihat detail
+        onClick={() => setIsDetailOpen(true)}
         className={`relative p-5 rounded-lg shadow-sm border cursor-pointer hover:shadow-md transition-all duration-200
           ${task.isCompleted
             ? 'bg-[var(--color-bg)] opacity-70 border-[var(--color-border)]'

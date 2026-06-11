@@ -1,13 +1,12 @@
-// src/App.tsx (Update bagian imports dan komponen TaskListView)
 import { useState } from 'react';
-import { Plus, LayoutGrid, List } from 'lucide-react'; // Tambah ikon LayoutGrid dan List
+import { Plus, LayoutGrid, List } from 'lucide-react';
 import { TaskProvider, useTasks } from './contexts/TaskContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import AppLayout from './components/layout/AppLayout';
 import TaskList from './components/common/TaskList';
 import TaskFormModal from './components/common/TaskFormModal';
 import FilterAndSortControls from './components/common/FilterAndSortControls';
-import BoardView from './components/common/BoardView'; // Import BoardView yang baru
+import BoardView from './components/common/BoardView';
 import type { Task } from './interfaces/Task';
 import { ToastProvider } from './contexts/ToastContext';
 
@@ -99,7 +98,7 @@ const TaskListView: React.FC = () => {
 function App() {
   return (
     <ThemeProvider>
-      <ToastProvider> {/* Pembungkus terluar untuk sistem notifikasi */}
+      <ToastProvider> 
         <TaskProvider>
           <AppLayout>
             <TaskListView />

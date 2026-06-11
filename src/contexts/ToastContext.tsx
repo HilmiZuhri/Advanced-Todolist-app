@@ -1,4 +1,3 @@
-// src/contexts/ToastContext.tsx
 import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, AlertCircle, Info, X } from 'lucide-react';
@@ -28,7 +27,6 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const id = Math.random().toString(36).substring(2, 9);
     setToasts(prevToasts => [...prevToasts, { id, message, type }]);
 
-    // Hilangkan otomatis setelah 3 detik
     setTimeout(() => {
       removeToast(id);
     }, 3000);

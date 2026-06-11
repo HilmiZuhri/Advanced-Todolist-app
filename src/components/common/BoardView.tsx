@@ -1,4 +1,3 @@
-// src/components/common/BoardView.tsx
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { Task } from '../../interfaces/Task';
@@ -16,7 +15,6 @@ const BoardColumn: React.FC<BoardColumnProps> = ({ title, tasks, isCompletedColu
   const { updateTask } = useTasks();
   const [isDragOver, setIsDragOver] = useState(false);
 
-  // Mencegah perilaku default agar drop bisa dilakukan
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragOver(true);
@@ -31,7 +29,6 @@ const BoardColumn: React.FC<BoardColumnProps> = ({ title, tasks, isCompletedColu
     setIsDragOver(false);
     const taskId = e.dataTransfer.getData('text/plain');
     if (taskId) {
-      // Perbarui status tugas berdasarkan kolom tempat ia dijatuhkan (dropped)
       updateTask(taskId, { isCompleted: isCompletedColumn });
     }
   };
@@ -88,7 +85,6 @@ interface BoardViewProps {
 }
 
 const BoardView: React.FC<BoardViewProps> = ({ tasks, onEditTask }) => {
-  // Pisahkan tugas berdasarkan status untuk kolom
   const toDoTasks = tasks.filter(task => !task.isCompleted);
   const completedTasks = tasks.filter(task => task.isCompleted);
 
