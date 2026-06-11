@@ -1,86 +1,157 @@
-/* 1. Wajib ditaruh di paling atas untuk mengaktifkan Tailwind v4 */
+/* =========================================
+   Tailwind CSS v4
+========================================= */
 @import "tailwindcss";
 
-/* 2. Daftarkan variabel kustommu ke dalam tema Tailwind v4 */
-@theme {
-  --color-text: #6b6375;
-  --color-text-h: #08060d;
-  --color-bg: #fff;
-  --color-border: #e5e4e7;
-  --color-code-bg: #f4f3ec;
-  --color-accent: #aa3bff;
-  --color-accent-bg: rgba(170, 59, 255, 0.1);
-  --color-accent-border: rgba(170, 59, 255, 0.5);
-  --color-social-bg: rgba(244, 243, 236, 0.5);
-  
-  --font-sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --font-heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: ui-monospace, Consolas, monospace;
+/* =========================================
+   Theme Variables (LIGHT MODE)
+========================================= */
+:root {
+  /* Colors */
+  --theme-text: #6b6375;
+  --theme-text-h: #08060d;
+  --theme-bg: #ffffff;
+  --theme-border: #e5e4e7;
+  --theme-code-bg: #f4f3ec;
+
+  --theme-accent: #aa3bff;
+  --theme-accent-bg: rgba(170, 59, 255, 0.1);
+  --theme-accent-border: rgba(170, 59, 255, 0.5);
+
+  --theme-social-bg: rgba(244, 243, 236, 0.5);
+
+  --theme-shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  /* Fonts */
+  --theme-sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --theme-heading: system-ui, "Segoe UI", Roboto, sans-serif;
+  --theme-mono: ui-monospace, Consolas, monospace;
+
+  color-scheme: light;
 }
 
-/* 3. CSS bawaanmu (Biarkan sisanya tetap seperti ini di bawahnya) */
-:root {
-  /* Variabel CSS native tetap ada untuk selector non-Tailwind */
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+/* =========================================
+   DARK MODE
+========================================= */
+html.dark {
+  --theme-text: #9ca3af;
+  --theme-text-h: #f3f4f6;
+  --theme-bg: #16171d;
+  --theme-border: #2e303a;
+  --theme-code-bg: #1f2028;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  --theme-accent: #c084fc;
+  --theme-accent-bg: rgba(192, 132, 252, 0.15);
+  --theme-accent-border: rgba(192, 132, 252, 0.5);
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
+  --theme-social-bg: rgba(47, 48, 58, 0.5);
+
+  --theme-shadow:
+    rgba(0, 0, 0, 0.4) 0 10px 15px -3px,
+    rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+
+  color-scheme: dark;
+}
+
+/* =========================================
+   Tailwind Theme Tokens
+========================================= */
+@theme {
+  --color-text: var(--theme-text);
+  --color-text-h: var(--theme-text-h);
+  --color-bg: var(--theme-bg);
+  --color-border: var(--theme-border);
+  --color-code-bg: var(--theme-code-bg);
+
+  --color-accent: var(--theme-accent);
+  --color-accent-bg: var(--theme-accent-bg);
+  --color-accent-border: var(--theme-accent-border);
+
+  --color-social-bg: var(--theme-social-bg);
+
+  --font-sans: var(--theme-sans);
+  --font-heading: var(--theme-heading);
+  --font-mono: var(--theme-mono);
+}
+
+/* =========================================
+   Base Styles
+========================================= */
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  background: var(--theme-bg);
+  color: var(--theme-text);
+
+  font-family: var(--theme-sans);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  @media (max-width: 1024px) {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+body {
+  font-size: 18px;
+  line-height: 1.45;
+  letter-spacing: 0.18px;
+}
+
+@media (max-width: 1024px) {
+  body {
     font-size: 16px;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-  
-  /* Otomatis update warna tema Tailwind saat dark mode */
-  @theme {
-    --color-text: #9ca3af;
-    --color-text-h: #f3f4f6;
-    --color-bg: #16171d;
-    --color-border: #2e303a;
-    --color-code-bg: #1f2028;
-    --color-accent: #c084fc;
-    --color-accent-bg: rgba(192, 132, 252, 0.15);
-    --color-accent-border: rgba(192, 132, 252, 0.5);
-    --color-social-bg: rgba(47, 48, 58, 0.5);
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+/* =========================================
+   Headings
+========================================= */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--theme-text-h);
+  font-family: var(--theme-heading);
 }
 
-/* Seterusnya ke bawah ( #root, body, h1, h2, p, code ) biarkan persis seperti yang kamu punya */
+/* =========================================
+   Links
+========================================= */
+a {
+  color: var(--theme-accent);
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* =========================================
+   Code Blocks
+========================================= */
+code,
+pre {
+  background: var(--theme-code-bg);
+  font-family: var(--theme-mono);
+}
+
+/* =========================================
+   Social Icons
+========================================= */
+#social .button-icon {
+  transition: filter 0.3s ease;
+}
+
+html.dark #social .button-icon {
+  filter: invert(1) brightness(2);
+}

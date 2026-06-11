@@ -2,8 +2,12 @@
 import React from 'react';
 import type { Task, TaskPriority, TaskCategory } from '../../interfaces/Task';
 import { useTasks } from '../../contexts/TaskContext';
-import { format, isPast, isToday } from 'date-fns'; // Untuk format tanggal dan cek waktu
-import { Edit2, Trash2, CheckSquare, Square, Tag, Calendar, AlertTriangle, Info, BellRing } from 'lucide-react'; // Ikon
+import { format, isPast, isToday } from 'date-fns';
+import {
+  Edit2, Trash2, CheckSquare, Square, Tag, Calendar,
+  AlertTriangle, Info, BellRing,
+  ArrowUp, ArrowRight, ArrowDown // Ikon Prioritas
+} from 'lucide-react'; // Tambahkan ikon prioritas
 
 interface TaskCardProps {
   task: Task;
@@ -23,17 +27,17 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit }) => {
     }
   };
 
-  // Helper untuk menentukan warna prioritas
-  const getPriorityColor = (priority: TaskPriority) => {
+  // Helper untuk menentukan warna & ikon prioritas
+  const getPriorityDisplay = (priority: TaskPriority) => {
     switch (priority) {
-      case 'High': return 'bg-red-500 text-white';
-      case 'Medium': return 'bg-yellow-500 text-gray-900';
-      case 'Low': return 'bg-green-500 text-white';
-      default: return 'bg-gray-400 text-white';
+      case 'High': return { color: 'bg-red-500 text-white', icon: ArrowUp };
+      case 'Medium': return { color: 'bg-yellow-500 text-gray-900', icon: ArrowRight };
+      case 'Low': return { color: 'bg-green-500 text-white', icon: ArrowDown };
+      default: return { color: 'bg-gray-400 text-white', icon: Info };
     }
   };
 
-  // Helper untuk menentukan warna kategori
+  // Helper untuk menentukan warna kategori (tetap sama)
   const getCategoryColor = (category: TaskCategory) => {
     switch (category) {
       case 'Work': return 'bg-blue-500';
@@ -47,8 +51,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit }) => {
   };
 
   const formattedDueDate = format(new Date(task.dueDate), 'MMM dd, yyyy');
-  const isOverdue = !task.isCompleted && isPast(new Date(task.dueDate)) && !isToday(new Date(task.dueDate));
-  const isDueToday = !task.isCompleted && isToday(new Date(task.dueDate));
+  const checkDate = new Date(task.dueDate);
+  // Pastikan isPast tidak menganggap hari ini sebagai "past" kecuali jika sudah benar-benar lewat (misal, tengah malam)
+  const isOverdue = !task.isCompleted && isPast(checkDate) && !isToday(checkDate);
+  const isDueToday = !task.isCompleted && isToday(checkDate);
+
+  const priorityDisplay = getPriorityDisplay(task.priority);
 
   return (
     <div
@@ -57,10 +65,22 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit }) => {
           ? 'bg-[var(--color-bg)] opacity-70 border-[var(--color-border)]'
           : 'bg-[var(--color-bg)] border-[var(--color-border)]'
         }
-        ${isOverdue ? 'border-red-500 ring-1 ring-red-500' : ''}
-        ${isDueToday ? 'border-amber-500 ring-1 ring-amber-500' : ''}
+        ${isOverdue ? 'border-red-500 ring-2 ring-red-500' : ''} {/* Lebih tebal */}
+        ${isDueToday ? 'border-amber-500 ring-2 ring-amber-500' : ''} {/* Lebih tebal */}
       `}
     >
+      {/* Indikator overdue/due today di pojok kanan atas */}
+      {(isOverdue || isDueToday) && (
+        <div className={`absolute top-0 right-0 p-1 rounded-bl-lg rounded-tr-lg
+          ${isOverdue ? 'bg-red-500 text-white' : 'bg-amber-500 text-white'}
+          flex items-center space-x-1 text-xs font-bold`}
+        >
+          {isOverdue && <AlertTriangle size={14} />}
+          {isDueToday && <BellRing size={14} />}
+          <span>{isOverdue ? 'Overdue' : 'Due Today'}</span>
+        </div>
+      )}
+
       <div className="flex items-start justify-between mb-3">
         {/* Checkbox dan Judul */}
         <div className="flex items-center flex-1 min-w-0">
@@ -85,12 +105,13 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit }) => {
           </h3>
         </div>
 
-        {/* Prioritas */}
+        {/* Prioritas dengan Ikon */}
         <div
-          className={`flex-shrink-0 ml-4 px-3 py-1 text-xs font-semibold rounded-full capitalize
-            ${getPriorityColor(task.priority)}`}
+          className={`flex-shrink-0 ml-4 px-3 py-1 text-xs font-semibold rounded-full capitalize flex items-center space-x-1
+            ${priorityDisplay.color}`}
         >
-          {task.priority}
+          <priorityDisplay.icon size={14} /> {/* Render ikon prioritas */}
+          <span>{task.priority}</span>
         </div>
       </div>
 
@@ -116,7 +137,6 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit }) => {
             }`}
         >
           <Calendar size={12} className="mr-1" /> {formattedDueDate}
-          {isOverdue && <BellRing size={12} className="ml-1 text-red-700 dark:text-red-300 animate-pulse" />}
         </span>
       </div>
 
