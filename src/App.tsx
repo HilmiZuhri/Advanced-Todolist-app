@@ -9,6 +9,7 @@ import TaskFormModal from './components/common/TaskFormModal';
 import FilterAndSortControls from './components/common/FilterAndSortControls';
 import BoardView from './components/common/BoardView'; // Import BoardView yang baru
 import type { Task } from './interfaces/Task';
+import { ToastProvider } from './contexts/ToastContext';
 
 const TaskListView: React.FC = () => {
   const { filteredAndSortedTasks, viewMode, setViewMode } = useTasks();
@@ -98,11 +99,13 @@ const TaskListView: React.FC = () => {
 function App() {
   return (
     <ThemeProvider>
-      <TaskProvider>
-        <AppLayout>
-          <TaskListView />
-        </AppLayout>
-      </TaskProvider>
+      <ToastProvider> {/* Pembungkus terluar untuk sistem notifikasi */}
+        <TaskProvider>
+          <AppLayout>
+            <TaskListView />
+          </AppLayout>
+        </TaskProvider>
+      </ToastProvider>
     </ThemeProvider>
   );
 }
