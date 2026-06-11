@@ -60,6 +60,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit }) => {
 
   return (
     <div
+    className={`relative p-5 rounded-lg shadow-sm border transition-shadow duration-200 hover:shadow-md`}>
+    <div
       className={`relative p-5 rounded-lg shadow-sm border
         ${task.isCompleted
           ? 'bg-[var(--color-bg)] opacity-70 border-[var(--color-border)]'
@@ -156,6 +158,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onEdit }) => {
           <Trash2 size={18} />
         </button>
       </div>
+    </div>
     </div>
   );
 };

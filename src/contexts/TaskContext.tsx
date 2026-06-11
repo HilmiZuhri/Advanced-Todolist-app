@@ -9,6 +9,7 @@ import type {
   TaskFilterOptions,
   TaskSortOptions,
   TaskContextType,
+  ViewMode
 } from '../interfaces/Task';
 
 // Inisialisasi default filter dan sort
@@ -27,6 +28,7 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // State untuk filter dan sort
   const [filterOptions, setFilterOptions] = useState<TaskFilterOptions>(defaultFilterOptions);
   const [sortOption, setSortOption] = useState<TaskSortOptions>(defaultSortOption);
+  const [viewMode, setViewMode] = useLocalStorage<ViewMode>('view-mode', 'list');
 
   // --- CRUD Operations ---
   const addTask = useCallback((newTaskData: Omit<Task, 'id' | 'isCompleted' | 'createdAt'>) => {
@@ -92,6 +94,8 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
     sortOption,
     setSortOption,
     filteredAndSortedTasks,
+    viewMode,
+    setViewMode,
   }), [
     tasks,
     addTask,
@@ -102,6 +106,8 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
     sortOption,
     setSortOption,
     filteredAndSortedTasks,
+    viewMode,
+    setViewMode,
   ]);
 
   return (

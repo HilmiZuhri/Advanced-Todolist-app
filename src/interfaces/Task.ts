@@ -2,6 +2,7 @@
 
 export type TaskPriority = 'Low' | 'Medium' | 'High';
 export type TaskCategory = 'Work' | 'Personal' | 'Shopping' | 'Health' | 'Study' | 'Other'; // Contoh kategori
+export type ViewMode = 'list' | 'board';
 
 export interface Task {
   id: string;
@@ -32,4 +33,7 @@ export interface TaskContextType {
   sortOption: TaskSortOptions;
   setSortOption: (option: TaskSortOptions) => void;
   filteredAndSortedTasks: Task[]; // Array tugas yang sudah difilter dan diurutkan
+  viewMode: ViewMode;
+  setViewMode: (mode: ViewMode) => void;
 }
+
